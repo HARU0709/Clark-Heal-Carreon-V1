@@ -1,0 +1,285 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  font-family: var(--font-sans), Arial, Helvetica, sans-serif;
+}
+
+html {
+  scroll-behavior: smooth;
+  /* Custom Scrollbar for Firefox */
+  scrollbar-width: thin;
+  scrollbar-color: hsl(var(--muted-foreground)) hsl(var(--secondary));
+}
+
+/* Custom Scrollbar for Webkit browsers */
+::-webkit-scrollbar {
+  width: 14px;
+}
+
+::-webkit-scrollbar-track {
+  background: hsl(var(--secondary));
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: hsl(var(--muted-foreground));
+  border-radius: 10px;
+  border: 4px solid transparent;
+  background-clip: content-box;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background-color: hsl(var(--primary));
+}
+
+.animate-fade-in-up {
+  animation: fade-in-up 0.8s ease-out both;
+}
+
+@layer base {
+  :root {
+    --background: 210 40% 98%; /* Light Gray #F7FAFC */
+    --foreground: 220 20% 30%; /* Darker Gray for text */
+    --card: 0 0% 100%;
+    --card-foreground: 220 20% 30%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 220 20% 30%;
+    --primary: 221 97% 54%; /* Vivid Blue #1556fc */
+    --primary-foreground: 0 0% 100%; /* White */
+    --secondary: 210 30% 92%;
+    --secondary-foreground: 220 15% 25%;
+    --muted: 210 30% 92%;
+    --muted-foreground: 210 30% 60%;
+    --accent: 40 97% 54%; /* Vivid Orange #fcbb15 */
+    --accent-foreground: 20 10% 10%; /* Dark text for contrast on orange */
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 210 20% 88%;
+    --input: 210 20% 92%;
+    --ring: 221 97% 54%; /* Primary color for rings */
+    --chart-1: 12 76% 61%;
+    --chart-2: 173 58% 39%;
+    --chart-3: 197 37% 24%;
+    --chart-4: 43 74% 66%;
+    --chart-5: 27 87% 67%;
+    --radius: 0.5rem;
+    --sidebar-background: 0 0% 98%;
+    --sidebar-foreground: 240 5.3% 26.1%;
+    --sidebar-primary: 240 5.9% 10%;
+    --sidebar-primary-foreground: 0 0% 98%;
+    --sidebar-accent: 240 4.8% 95.9%;
+    --sidebar-accent-foreground: 240 5.9% 10%;
+    --sidebar-border: 220 13% 91%;
+    --sidebar-ring: 217.2 91.2% 59.8%;
+  }
+  .dark {
+    --background: 222 47% 11%;
+    --foreground: 210 40% 98%;
+    --card: 222 47% 11%;
+    --card-foreground: 210 40% 98%;
+    --popover: 222 47% 11%;
+    --popover-foreground: 210 40% 98%;
+    --primary: 221 97% 60%; /* Slightly lighter blue, kept from original dark mode */
+    --primary-foreground: 0 0% 100%; /* Kept from original dark mode */
+    --secondary: 217 33% 17%;
+    --secondary-foreground: 210 40% 98%;
+    --muted: 217 33% 17%;
+    --muted-foreground: 215 20% 65%;
+    --accent: 217 33% 22%;
+    --accent-foreground: 210 40% 98%;
+    --destructive: 0 63% 31%;
+    --destructive-foreground: 210 40% 98%;
+    --border: 217 33% 17%;
+    --input: 217 33% 17%;
+    --ring: 224 76% 48%;
+    --chart-1: 220 70% 50%;
+    --chart-2: 160 60% 45%;
+    --chart-3: 30 80% 55%;
+    --chart-4: 280 65% 60%;
+    --chart-5: 340 75% 55%;
+    --sidebar-background: 240 5.9% 10%;
+    --sidebar-foreground: 240 4.8% 95.9%;
+    --sidebar-primary: 224.3 76.3% 48%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 240 3.7% 15.9%;
+    --sidebar-accent-foreground: 240 4.8% 95.9%;
+    --sidebar-border: 240 3.7% 15.9%;
+    --sidebar-ring: 217.2 91.2% 59.8%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+}
+
+/* Animation for project filtering */
+.project-card-container.hidden {
+  transform: scale(0.9);
+  opacity: 0;
+  width: 0;
+  padding: 0;
+  margin: 0;
+  overflow: hidden;
+}
+
+/* Animations for testimonial marquee */
+@keyframes scroll-left {
+  from { transform: translateX(0); }
+  to { transform: translateX(calc(-100% - 1rem)); } /* 1rem is the gap */
+}
+
+@keyframes scroll-right {
+  from { transform: translateX(calc(-100% - 1rem)); }
+  to { transform: translateX(0); }
+}
+
+.animate-scroll-left {
+  animation: scroll-left 40s linear infinite;
+}
+
+.animate-scroll-right {
+  animation: scroll-right 40s linear infinite;
+}
+
+/* Button Shimmer Effect */
+.btn-shimmer {
+  position: relative;
+  overflow: hidden;
+}
+
+.btn-shimmer::after {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(circle, rgba(255, 255, 255, 0.2) 0%, rgba(255, 255, 255, 0) 70%);
+  transform: scale(0);
+  transition: transform 0.5s ease;
+}
+
+.btn-shimmer:hover::after {
+  transform: scale(2);
+}
+
+/* Pop-in animation */
+@keyframes pop-in {
+  0% {
+    opacity: 0;
+    transform: scale(0.5);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.animate-pop-in {
+  animation: pop-in 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
+}
+
+/* Floating bubble animation */
+@keyframes float {
+	0% {
+		transform: translatey(0px);
+	}
+	50% {
+		transform: translatey(-20px);
+	}
+	100% {
+		transform: translatey(0px);
+	}
+}
+
+.animate-float {
+  animation-name: float;
+  animation-timing-function: ease-in-out;
+  animation-iteration-count: infinite;
+}
+
+/* CTA Glow Animation */
+.cta-glow-container {
+  position: relative;
+  overflow: hidden;
+}
+
+@keyframes animate-glow-line-top {
+  0% { left: -100%; }
+  100% { left: 100%; }
+}
+@keyframes animate-glow-line-right {
+  0% { top: -100%; }
+  100% { top: 100%; }
+}
+@keyframes animate-glow-line-bottom {
+  0% { right: -100%; }
+  100% { right: 100%; }
+}
+@keyframes animate-glow-line-left {
+  0% { bottom: -100%; }
+  100% { bottom: 100%; }
+}
+
+.cta-glow-container span {
+  position: absolute;
+  display: block;
+}
+.cta-glow-container span:nth-child(1) {
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, hsl(var(--primary-foreground)));
+  animation: animate-glow-line-top 2s linear infinite;
+  animation-delay: 0s;
+}
+.cta-glow-container span:nth-child(2) {
+  top: -100%;
+  right: 0;
+  width: 2px;
+  height: 100%;
+  background: linear-gradient(180deg, transparent, hsl(var(--primary-foreground)));
+  animation: animate-glow-line-right 2s linear infinite;
+  animation-delay: 0.5s;
+}
+.cta-glow-container span:nth-child(3) {
+  bottom: 0;
+  right: -100%;
+  width: 100%;
+  height: 2px;
+  background: linear-gradient(270deg, transparent, hsl(var(--primary-foreground)));
+  animation: animate-glow-line-bottom 2s linear infinite;
+  animation-delay: 1s;
+}
+.cta-glow-container span:nth-child(4) {
+  bottom: -100%;
+  left: 0;
+  width: 2px;
+  height: 100%;
+  background: linear-gradient(360deg, transparent, hsl(var(--primary-foreground)));
+  animation: animate-glow-line-left 2s linear infinite;
+  animation-delay: 1.5s;
+}
+
+@keyframes wave {
+  0% {
+    box-shadow: 0 0 0 0 hsla(var(--primary), 0.7);
+  }
+  70% {
+    box-shadow: 0 0 0 20px hsla(var(--primary), 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 hsla(var(--primary), 0);
+  }
+}
+
+.animate-wave {
+  animation: wave 2s infinite;
+}
